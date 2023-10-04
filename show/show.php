@@ -47,7 +47,7 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
                     context.drawImage(image, x, y, splitted_width, splitted_height, 0, 0, splitted_width, splitted_height);
                     let url = canvas.toDataURL();
                     htmls += "<img src='" + url + "' onclick='func(this)' value = "+(2*(n_ver*ny+nx))+"
-                    style = filter: invert(0.5);>";
+                    style = 'filter: invert(0.5);'>";
                 }
                 htmls += "<br>"
             }
