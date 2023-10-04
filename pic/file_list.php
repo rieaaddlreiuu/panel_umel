@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 'On');
+require '../index.php';
 require '../features/DbM.php';
 $db = getDb();
 $stt = $db->prepare('select * from panel');

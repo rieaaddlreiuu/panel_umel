@@ -1,4 +1,5 @@
 <?php
+require '../index.php';
 require '../features/DbM.php';
 $db = getDb();
 $stt = $db->prepare('select * from panel where id=:id');
@@ -46,8 +47,8 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
                     x = splitted_width * nx;
                     context.drawImage(image, x, y, splitted_width, splitted_height, 0, 0, splitted_width, splitted_height);
                     let url = canvas.toDataURL();
-                    htmls += "<img src='" + url + "' onclick='func(this)' value = "+(2*(n_ver*ny+nx))+"
-                    style = 'filter: invert(0.5);'>";
+                    htmls += "<img src='" + url + "' onclick='func(this)'>";
+                
                 }
                 htmls += "<br>"
             }
@@ -55,12 +56,12 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
         }
 
         function func(element) {
-            if (element.value%2 == 1) {
+            if (element.value == 1) {
                 element.style = "";
-                element.value -= 1;
+                element.value == 0;
             } else {
                 element.style = "filter: invert(0.5);";
-                element.value += 1;
+                element.value =1;
             }
         }
     </script>
