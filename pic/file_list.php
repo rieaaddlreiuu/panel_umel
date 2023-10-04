@@ -1,25 +1,29 @@
 <?php
 ini_set('display_errors', 'On');
-
+require '../features/DbM.php';
 $db = getDb();
-$stt = $db->prepare('select * from user where id=:id');
-$stt->bindValue(':id', $id);
+$stt = $db->prepare('select * from panel');
 $stt->execute();
-$usr = $stt->fetch(PDO::FETCH_ASSOC);
-$dir = '../pictures/' . $usr['name'];
-$nm = $usr['name'];
+$tbl = $stt->fetchAll(PDO::FETCH_ASSOC);
 
-$paths = glob('../pictures/*');
 echo '<table><tr>
-        <th>画像</th>
-        <th>パス</th>
+        <th>名前</th>
+        <th>よこたて</th>
+        <th>リンク</th>
       </tr>';
-      foreach ($paths as $row) {
-        ?>
-        <tr>
-            <td><img src=<?= $row?> width="300" height="300"></td>
-            <td><?=$row ?></td>
-        </tr>
-        <?php
-      }
+foreach ($paths as $row) {
+  ?>
+  <tr>
+    <td>
+      <?= $row['width'] . ':' . $row['height'] ?>
+    </td>
+    <td>
+      <?= $row['name'] ?>
+    </td>
+    <td>
+      <a href="../show/show.php?id=<?=$row['id']?>">ここ</a>
+    </td>
+  </tr>
+  <?php
+}
 ?>

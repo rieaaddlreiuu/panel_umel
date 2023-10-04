@@ -1,3 +1,12 @@
+<?php
+require '../features/DbM.php';
+$db = getDb();
+$stt = $db->prepare('select * from panel where id=:id');
+$stt->bindValue(':id', $_GET['id']);
+$stt->execute();
+$data = $stt->fetch(PDO::FETCH_ASSOC);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,12 +24,12 @@
     </p>
     <script>
         const result_area = document.getElementById("result_area");
-        let n_ver = 2;//横
-        let n_hol = 2;//縦
+        let n_ver = <?=$data['width']?>;//横
+        let n_hol = <?=$data['height']?>;//縦
         result_area.innerHTML = "";
 
         let image = new Image();
-        image.src = "./133306044.png";
+        image.src = <?=$data['pic_path']?>;
         image.onload = () => {
             let canvas = document.createElement("canvas");
             let context = canvas.getContext("2d");
