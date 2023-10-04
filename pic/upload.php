@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 'On');
+require '../features/DbM.php';
 $db = getDb();
 $dir = '../pictures/' . $usr['name'];
 $nm = $usr['name'];
@@ -15,7 +16,7 @@ if (isset($_POST['upload'])) { //送信ボタンが押された場合
         move_uploaded_file($_FILES['image']['tmp_name'], '../pictures/' . $image); //imagesディレクトリにファイル保存
         if (exif_imagetype($file)) { //画像ファイルかのチェック
             $message = '画像をアップロードしました<br>パス : ../pictures/' . $image . '<br><img src="../pictures/' . $nm . '/' . $image . '">';
-            $stt = $db->prepare('insert into panel(id, width, height, pic_path, name) values
+            $stt = $db->prepare('insert into panel(width, height, pic_path, name) values
             (:w,:h,:pic_path,:name)');
             $stt->bindValue(':w',$w);
             $stt->bindValue(':h',$h);
