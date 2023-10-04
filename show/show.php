@@ -19,7 +19,7 @@
     </p>
     <p>
         result: <br>
-        <div id="result_area"></div>
+        <div style="line-height:0;" id="result_area"></div>
     </p>
     <script src="./wanna_input.js"></script>
 </body>
