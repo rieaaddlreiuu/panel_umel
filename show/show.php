@@ -29,7 +29,7 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
         result_area.innerHTML = "";
 
         let image = new Image();
-        image.src = <?=$data['pic_path']?>;
+        image.src = "<?=$data['pic_path']?>";
         image.onload = () => {
             let canvas = document.createElement("canvas");
             let context = canvas.getContext("2d");

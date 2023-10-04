@@ -11,7 +11,7 @@ echo '<table><tr>
         <th>よこたて</th>
         <th>リンク</th>
       </tr>';
-foreach ($paths as $row) {
+foreach ($tbl as $row) {
   ?>
   <tr>
     <td>
