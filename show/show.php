@@ -38,7 +38,7 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
             let splitted_height = Math.floor(image.height / n_hol);
             canvas.width = splitted_width;
             canvas.height = splitted_height;
-            let htmls = "";
+            let htmls = "<form action='./check_register.php'>";
             nx = 0;
             for (let ny = 0; ny < n_hol; ny++) {
                 nx = 0;
@@ -47,12 +47,12 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
                     x = splitted_width * nx;
                     context.drawImage(image, x, y, splitted_width, splitted_height, 0, 0, splitted_width, splitted_height);
                     let url = canvas.toDataURL();
-                    htmls += "<img src='" + url + "' onclick='func(this)' id='"+(n_ver*ny+nx)+"' class='datas'>";
+                    htmls += "<img src='" + url + "' onclick='func(this)' id='"+(n_ver*ny+nx)+"' class='datas'><input type='checkbox' id='"+(-1-(n_ver*ny+nx))+"' hidden>";
                 
                 }
                 htmls += "<br>"
             }
-            result_area.innerHTML = htmls;
+            result_area.innerHTML = htmls + "<input type='submit'></form>";
           let set = document.getElementsByClassName("datas");
           for(let i=0;i<set.length;i++){
             set[i].style = "filter: invert(0.5);";
@@ -63,9 +63,11 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
             if (element.value == 1) {
                 element.style = "filter: invert(0.5);";
                 element.value = 0;
+              document.getElementById(-1-element.id).checked = "";
             } else {
                 element.style = "";
                 element.value = 1;
+              document.getElementById(-1-element.id).checked = "checked";
             }
         }
     </script>
