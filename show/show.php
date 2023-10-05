@@ -47,21 +47,25 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
                     x = splitted_width * nx;
                     context.drawImage(image, x, y, splitted_width, splitted_height, 0, 0, splitted_width, splitted_height);
                     let url = canvas.toDataURL();
-                    htmls += "<img src='" + url + "' onclick='func(this)'>";
+                    htmls += "<img src='" + url + "' onclick='func(this)' id='"+(n_ver*ny+nx)+"' class='datas'>";
                 
                 }
                 htmls += "<br>"
             }
             result_area.innerHTML = htmls;
+          let set = document.getElementsByClassName("datas");
+          for(let i=0;i<set.length;i++){
+            set[i].style = "filter: invert(0.5);";
+          }
         }
 
         function func(element) {
             if (element.value == 1) {
-                element.style = "";
-                element.value == 0;
-            } else {
                 element.style = "filter: invert(0.5);";
-                element.value =1;
+                element.value = 0;
+            } else {
+                element.style = "";
+                element.value = 1;
             }
         }
     </script>
