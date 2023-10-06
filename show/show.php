@@ -1,3 +1,4 @@
+<form action="./check_register.php?id=<?=$_GET['id']?>" method="POST">
 <?php
 require '../index.php';
 require '../features/DbM.php';
@@ -6,8 +7,17 @@ $stt = $db->prepare('select * from panel where id=:id');
 $stt->bindValue(':id', $_GET['id']);
 $stt->execute();
 $data = $stt->fetch(PDO::FETCH_ASSOC);
-
+$n_ver = $data['width'];//横
+$n_hol =$data['height'];//縦
+for ($ny = 0; $ny < $n_hol; $ny++) {
+                for ($nx = 0; $nx < $n_ver; $nx++) {
+                    ?>
+                  <input type="checkbox" name="data[]" id="<?= -1-($n_ver*$ny+$nx)?>" value="<?= -1-($n_ver*$ny+$nx)?>" hidden>
+                  <?php
+                }
+            }
 ?>
+<input type="submit"></form>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +48,7 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
             let splitted_height = Math.floor(image.height / n_hol);
             canvas.width = splitted_width;
             canvas.height = splitted_height;
-            let htmls = "<form action='./check_register.php'>";
+            let htmls = "<form action='./check_register.php' method='POST' >";
             nx = 0;
             for (let ny = 0; ny < n_hol; ny++) {
                 nx = 0;
@@ -47,12 +57,12 @@ $data = $stt->fetch(PDO::FETCH_ASSOC);
                     x = splitted_width * nx;
                     context.drawImage(image, x, y, splitted_width, splitted_height, 0, 0, splitted_width, splitted_height);
                     let url = canvas.toDataURL();
-                    htmls += "<img src='" + url + "' onclick='func(this)' id='"+(n_ver*ny+nx)+"' class='datas'><input type='checkbox' id='"+(-1-(n_ver*ny+nx))+"' hidden>";
+                    htmls += "<img src='" + url + "' onclick='func(this)' id='"+(n_ver*ny+nx)+"' class='datas'>";
                 
                 }
                 htmls += "<br>"
             }
-            result_area.innerHTML = htmls + "<input type='submit'></form>";
+            result_area.innerHTML = htmls;
           let set = document.getElementsByClassName("datas");
           for(let i=0;i<set.length;i++){
             set[i].style = "filter: invert(0.5);";
