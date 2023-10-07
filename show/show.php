@@ -7,6 +7,11 @@ $stt = $db->prepare('select * from panel where id=:id');
 $stt->bindValue(':id', $_GET['id']);
 $stt->execute();
 $data = $stt->fetch(PDO::FETCH_ASSOC);
+$stt = $db->prepare('select * from panel_chk where panel = :id');
+$stt->bindValue(':id', $_GET['id']);
+$stt->execute();
+$x = $stt->fetchAll(PDO::FETCH_ASSOC);
+$x_json = json_encode($x);
 $n_ver = $data['width'];//横
 $n_hol =$data['height'];//縦
 for ($ny = 0; $ny < $n_hol; $ny++) {
@@ -67,8 +72,8 @@ for ($ny = 0; $ny < $n_hol; $ny++) {
           for(let i=0;i<set.length;i++){
             set[i].style = "filter: invert(0.5);";
           }
+          sstd();
         }
-
         function func(element) {
             if (element.value == 1) {
                 element.style = "filter: invert(0.5);";
@@ -80,6 +85,13 @@ for ($ny = 0; $ny < $n_hol; $ny++) {
               document.getElementById(-1-element.id).checked = "checked";
             }
         }
+      function sstd(){
+        let data = <?=$x_json?>;
+        for(let j=0;j<data.length;j++){
+          e = document.getElementById(String(data[j].num));
+          func(e);
+        }
+      }
     </script>
 </body>
 
