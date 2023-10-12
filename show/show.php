@@ -34,11 +34,16 @@ for ($ny = 0; $ny < $n_hol; $ny++) {
 </head>
 
 <body>
+  <input type="number" id="eses">
+  <button type="button" onclick="f()" name="sss">click</button>
+    降順 : <input type="checkbox" name="fffff" id="aslw">
     <p>
         result: <br>
     <div style="line-height:0;" id="result_area"></div>
     </p>
     <script>
+      function f(){
+      const st = Number(document.getElementById("eses").value);
         const result_area = document.getElementById("result_area");
         let n_ver = <?=$data['width']?>;//横
         let n_hol = <?=$data['height']?>;//縦
@@ -56,6 +61,12 @@ for ($ny = 0; $ny < $n_hol; $ny++) {
             let htmls = "<form action='./check_register.php' method='POST' >";
             nx = 0;
             for (let ny = 0; ny < n_hol; ny++) {
+              if(document.getElementById("aslw").checked == ""){
+                xxx=st+ny;
+              } else {
+                xxx=st-ny;
+              }
+              htmls += xxx+" : ";
                 nx = 0;
                 y = splitted_height * ny;
                 for (let x = 0; nx < n_ver; nx++) {
@@ -74,6 +85,7 @@ for ($ny = 0; $ny < $n_hol; $ny++) {
           }
           sstd();
         }
+      }
         function func(element) {
             if (element.value == 1) {
                 element.style = "filter: invert(0.5);";
